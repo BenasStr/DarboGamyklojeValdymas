@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DarbasGamykloje.ViewModels.LivingSpaceListView>
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.adress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.roomNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.maxCapacity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_LivingSpace)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.adress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.roomNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.maxCapacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_LivingSpace)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
