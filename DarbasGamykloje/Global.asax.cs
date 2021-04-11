@@ -17,5 +17,10 @@ namespace DarbasGamykloje
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+    }
+    public static class Globals
+    {
+        public static string dbPrefix { get { return "pavyzdys_"; } }
     }
 }
