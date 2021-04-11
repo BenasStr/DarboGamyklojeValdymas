@@ -1,0 +1,39 @@
+﻿@model DarbasGamykloje.Models.LivingSpace
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Living space deletion</h2>
+
+<h3>Do you want to delete living space?</h3>
+<div>
+    <h4>LivingSpace</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.adress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @if (ViewBag.used != null)
+            {
+                <h5 style="color:red">@ViewBag.used</h5>
+            }
+            else
+            {
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            }
+            @Html.ActionLink("BackToList", "Index", "LivingSpace", new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

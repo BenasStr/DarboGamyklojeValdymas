@@ -216,6 +216,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\LivingSpace\Index.cshtml" />
     <Content Include="Views\LivingSpace\Create.cshtml" />
+    <Content Include="Views\LivingSpace\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
