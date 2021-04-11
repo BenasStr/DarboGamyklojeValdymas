@@ -17,7 +17,7 @@ namespace DarbasGamykloje.Repos
             List<LivingSpaceListView> LivingSpaces = new List<LivingSpaceListView>();
             string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
             MySqlConnection mySqlConnection = new MySqlConnection(connStr);
-            string sqlQuery = @"SELECT * FROM livingspace";
+            string sqlQuery = @"SELECT DISTINCT adress FROM livingspace";
             MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
             mySqlConnection.Open();
             MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
@@ -30,9 +30,6 @@ namespace DarbasGamykloje.Repos
                 LivingSpaces.Add(new LivingSpaceListView
                 {
                     adress = Convert.ToString(dr["adress"]),
-                    roomNumber = Convert.ToInt32(dr["roomNumber"]),
-                    maxCapacity = Convert.ToInt32(dr["maxCapacity"]),
-                    id_LivingSpace = Convert.ToInt32(dr["id_LivingSpace"])
                 });
             }
 
