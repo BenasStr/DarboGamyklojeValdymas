@@ -35,7 +35,7 @@ namespace DarbasGamykloje.Controllers.LivingSpace
                 {
                     LivingSpaceRepos.EditExistingRoom(collection);
                 }
-                ViewBag.SuccessMessage = "<p>Success!</p>";
+
                 return RedirectToAction("RoomList", new { id = collection.adress });
             }
             catch
