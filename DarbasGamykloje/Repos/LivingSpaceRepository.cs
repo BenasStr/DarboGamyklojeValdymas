@@ -35,5 +35,21 @@ namespace DarbasGamykloje.Repos
 
             return LivingSpaces;
         }
+
+        public bool AddNewLivingSpace(AddLivingSpaceview LivingSpaceView)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+            string sqlQuery = @"INSERT INTO livingspace ('adress', 'roomnumber', 'maxcapacity') VALUES (?adress, ?roomnumber, ?maxcapacity)";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+            mySqlCommand.Parameters.Add("?adress", MySqlDbType.VarChar).Value = LivingSpaceView.adress;
+            mySqlCommand.Parameters.Add("?roomnumber", MySqlDbType.Int32).Value = LivingSpaceView.roomNumber;
+            mySqlCommand.Parameters.Add("?maxcapacity", MySqlDbType.Int32).Value = LivingSpaceView.maxCapacity;
+            mySqlConnection.Open();
+            mySqlCommand.ExecuteNonQuery();
+            mySqlConnection.Close();
+            return true;
+        }
+
     }
 }
