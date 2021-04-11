@@ -34,9 +34,10 @@ namespace DarbasGamykloje.Controllers.LivingSpace
                 AddNewLivingSpace(collection);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception death)
             {
-                TempData["err"] = "U dumb";
+                TempData["err"] = death.Message;
+                //TempData["err"] = "U dumb";
                 return RedirectToAction("Index");
             }
         }
