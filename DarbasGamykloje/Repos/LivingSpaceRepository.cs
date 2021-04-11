@@ -12,7 +12,7 @@ namespace DarbasGamykloje.Repos
     public class LivingSpaceRepository
     {
 
-        public List<LivingSpaceListView> getLivingSpaces()
+        public List<LivingSpaceListView> GetLivingSpaces()
         {
             List<LivingSpaceListView> LivingSpaces = new List<LivingSpaceListView>();
             string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;

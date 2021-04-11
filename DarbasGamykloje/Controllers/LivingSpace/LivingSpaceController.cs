@@ -15,7 +15,7 @@ namespace DarbasGamykloje.Controllers.LivingSpace
         public ActionResult Index()
         {
             ModelState.Clear();
-            return View(LivingSpaceRepos.getLivingSpaces());
+            return View(LivingSpaceRepos.GetLivingSpaces());
         }
     }
 }
