@@ -80,5 +80,35 @@ namespace DarbasGamykloje.Controllers.LivingSpace
             }
 
         }
+
+        public ActionResult Delete(string adress)
+        {
+            return View(LivingSpaceRepos.getLivingSpaceByAddress(adress));
+        }
+
+        [HttpPost]
+        public ActionResult Delete(string adress, FormCollection collection)
+        {
+            try
+            {
+                bool used = false;
+                if (LivingSpaceRepos.getWorkersInLivingSpaces(adress) > 0)
+                {
+                    used = true;
+                    ViewBag.naudojama = "PEOPLE ARE STILL LOIVING HERE";
+                    return View(LivingSpaceRepos.getLivingSpaces());
+                }
+
+                if (!used)
+                {
+                    LivingSpaceRepos.ConfirmDeleteLivingSpace(adress);
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }
