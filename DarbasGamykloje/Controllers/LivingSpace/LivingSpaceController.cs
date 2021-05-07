@@ -37,7 +37,6 @@ namespace DarbasGamykloje.Controllers.LivingSpace
             catch (Exception death)
             {
                 TempData["err"] = death.Message;
-                //TempData["err"] = "U dumb";
                 return RedirectToAction("Index");
             }
         }
@@ -73,7 +72,7 @@ namespace DarbasGamykloje.Controllers.LivingSpace
                     if (collection.adress == null || collection.roomNumber == 0 || collection.maxCapacity == 0)
                     {
                         TempData["err"] = "Missing data.";
-                        break;
+                        return;
                     }
                     collection.roomNumber = i;
                     LivingSpaceRepos.AddNewLivingSpace(collection);
