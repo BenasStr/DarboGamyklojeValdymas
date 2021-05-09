@@ -15,7 +15,10 @@ namespace DarbasGamykloje.Controllers.LivingSpace
         public ActionResult Index()
         {
             ModelState.Clear();
-            return View(LivingSpaceRepos.GetLivingSpaces());
+            List<LivingSpaceListView> ls = LivingSpaceRepos.GetLivingSpaces();
+            ls = GetUniqueAdresses(ls);
+
+            return View(ls);
         }
 
 
@@ -41,47 +44,8 @@ namespace DarbasGamykloje.Controllers.LivingSpace
             }
         }
 
-        public void AddNewLivingSpace(AddLivingSpaceview collection)
-        {
-            int numberOfLivingSpaces = collection.roomNumber;
-            List<LivingSpaceListView> LivingSpaceList = LivingSpaceRepos.GetLivingSpaces();
-            
-            foreach (var LS in LivingSpaceList)
-            {
-                if (collection.adress == LS.adress)
-                {
-                    TempData["err"] = "Address already exists.";
-                }
-            }
 
-
-
-            if (numberOfLivingSpaces == 1)
-            {
-                if (collection.adress == null || collection.roomNumber == 0 || collection.maxCapacity == 0)
-                {
-                    TempData["err"] = "Missing data.";
-                    return;
-                }
-                LivingSpaceRepos.AddNewLivingSpace(collection);
-            }
-            else
-            {
-                for (int i = 1; i <= numberOfLivingSpaces; i++)
-                {
-                    if (collection.adress == null || collection.roomNumber == 0 || collection.maxCapacity == 0)
-                    {
-                        TempData["err"] = "Missing data.";
-                        return;
-                    }
-                    collection.roomNumber = i;
-                    LivingSpaceRepos.AddNewLivingSpace(collection);
-                }
-            }
-
-        }
-
-        public ActionResult Delete(string adress)
+        /*public ActionResult Delete(string adress)
         {
             return View(LivingSpaceRepos.getLivingSpaceByAddress(adress));
         }
@@ -109,6 +73,77 @@ namespace DarbasGamykloje.Controllers.LivingSpace
             {
                 return View();
             }
+        }*/
+
+        public void CheckIfAdressExists(AddLivingSpaceview collection, List<LivingSpaceListView> list)
+        {
+            foreach (var LS in list)
+            {
+                if (collection.adress == LS.adress)
+                {
+                    TempData["err"] = "Address already exists.";
+                }
+            }
+        }
+
+        public void CheckIfAllIsFilledOut(AddLivingSpaceview collection)
+        {
+            int numberOfLivingSpaces = collection.roomNumber;
+            if (numberOfLivingSpaces == 1)
+            {
+                if (collection.adress == null || collection.roomNumber == 0 || collection.maxCapacity == 0)
+                {
+                    TempData["err"] = "Missing data.";
+                    return;
+                }
+                LivingSpaceRepos.AddNewLivingSpace(collection);
+            }
+            else
+            {
+                for (int i = 1; i <= numberOfLivingSpaces; i++)
+                {
+                    if (collection.adress == null || collection.roomNumber == 0 || collection.maxCapacity == 0)
+                    {
+                        TempData["err"] = "Missing data.";
+                        return;
+                    }
+                    collection.roomNumber = i;
+                    LivingSpaceRepos.AddNewLivingSpace(collection);
+                }
+            }
+        }
+        public void AddNewLivingSpace(AddLivingSpaceview collection)
+        {
+            List<LivingSpaceListView> LivingSpaceList = LivingSpaceRepos.GetLivingSpaces();
+
+            CheckIfAdressExists(collection, LivingSpaceList);
+
+            CheckIfAllIsFilledOut(collection);
+        }
+
+        public List<LivingSpaceListView> GetUniqueAdresses(List<LivingSpaceListView> list)
+        {
+            List<LivingSpaceListView> unique = new List<LivingSpaceListView>();
+
+            foreach(var item in list)
+            {
+                bool has = false;
+                foreach(var un in unique)
+                {
+                    if (item.adress == un.adress)
+                    {
+                        has = true;
+                        break;
+                    }
+                }
+
+                if (!has)
+                {
+                    unique.Add(item);
+                }
+            }
+
+            return unique;
         }
     }
 }
