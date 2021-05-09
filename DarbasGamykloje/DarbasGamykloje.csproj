@@ -164,19 +164,28 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Schedule\AssignmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LivingSpace\LivingSpaceController.cs" />
+    <Compile Include="Controllers\Schedule\ScheduleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Assignments.cs" />
     <Compile Include="Models\LivingSpace.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\AssignmentsRepository.cs" />
     <Compile Include="Repos\LivingSpaceRepository.cs" />
+    <Compile Include="Repos\ScheduleRepository.cs" />
+    <Compile Include="ViewModels\Schedules\AssignmentDetailsView.cs" />
+    <Compile Include="ViewModels\Schedules\AssignmentsListView.cs" />
     <Compile Include="ViewModels\LivingSpace\AddLivingSpaceview.cs" />
     <Compile Include="ViewModels\LivingSpace\DeleteLivingSpaceView.cs" />
     <Compile Include="ViewModels\LivingSpace\EditLivingSpaceView.cs" />
     <Compile Include="ViewModels\LivingSpace\LivingSpaceListView.cs" />
+    <Compile Include="ViewModels\Schedules\ScheduleListView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -217,6 +226,9 @@
     <Content Include="Views\LivingSpace\Index.cshtml" />
     <Content Include="Views\LivingSpace\Create.cshtml" />
     <Content Include="Views\LivingSpace\Delete.cshtml" />
+    <Content Include="Views\Assignments\Index.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\Assignments\AssignmentView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
