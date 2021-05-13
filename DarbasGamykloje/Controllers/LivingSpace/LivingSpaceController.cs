@@ -12,7 +12,7 @@ namespace DarbasGamykloje.Controllers.LivingSpace
     {
         LivingSpaceRepository LivingSpaceRepos = new LivingSpaceRepository();
 
-        public ActionResult Index()
+        public ActionResult Belekas()
         {
             ModelState.Clear();
             return View(LivingSpaceRepos.GetLivingSpaces());
