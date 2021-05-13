@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DarbasGamykloje.ViewModels.FactoryListView>
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.maxCapacity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_Factory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_Managerid_Manager)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.maxCapacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_Factory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fk_Managerid_Manager)
+        </td>
+        <td>
+            
+            @Html.ActionLink("Add", "Add", new { id = item.id_Factory }) 
+        </td>
+    </tr>
+}
+
+</table>
