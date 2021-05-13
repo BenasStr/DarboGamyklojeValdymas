@@ -96,7 +96,6 @@ namespace DarbasGamykloje.Controllers.LivingSpace
                 {
                     used = true;
                     ViewBag.naudojama = "PEOPLE ARE STILL LOIVING HERE";
-                    return View(LivingSpaceRepos.getLivingSpaces());
                 }
 
                 if (!used)
