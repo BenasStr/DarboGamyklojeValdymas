@@ -171,6 +171,7 @@
     <Compile Include="Controllers\LivingSpace\LivingSpaceController.cs" />
     <Compile Include="Controllers\Schedule\ScheduleController.cs" />
     <Compile Include="Controllers\Worker\SalaryController.cs" />
+    <Compile Include="Controllers\Worker\WorkerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +190,7 @@
     <Compile Include="Repos\FactoryRepository.cs" />
     <Compile Include="Repos\LivingSpaceRepository.cs" />
     <Compile Include="Repos\ScheduleRepository.cs" />
+    <Compile Include="Repos\WorkerRepository.cs" />
     <Compile Include="Repos\WorkSpaceRepository.cs" />
     <Compile Include="ViewModels\Factory\FactoryEditViewModel.cs" />
     <Compile Include="ViewModels\Factory\FactoryListView.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="ViewModels\LivingSpace\EditLivingSpaceView.cs" />
     <Compile Include="ViewModels\LivingSpace\LivingSpaceListView.cs" />
     <Compile Include="ViewModels\Schedules\ScheduleListView.cs" />
+    <Compile Include="ViewModels\Worker\WorkerView.cs" />
     <Compile Include="ViewModels\WorkSpace\AddWorkspaceView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -638,6 +641,7 @@
     <Content Include="Views\Factory\Index.cshtml" />
     <Content Include="Views\Factory\FactoryListForSelectingWorkers.cshtml" />
     <Content Include="Views\Factory\WorkerListInFactory.cshtml" />
+    <Content Include="Views\Worker\CompletedWork.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
