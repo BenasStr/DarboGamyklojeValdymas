@@ -58,5 +58,23 @@ namespace DarbasGamykloje.Repos
 
             return true;
         }
+
+        public int GetFactoryCapacity(int id)
+        {
+            int capacity = 0;
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+            string sqlQuery = @"SELECT  maxCapacity FROM factory WHERE id_Factory  = ?id"; 
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlConnection.Open();
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            capacity = Convert.ToInt32(dt.Rows[0]["maxCapacity"]);
+            return capacity;
+        }
     }
 }

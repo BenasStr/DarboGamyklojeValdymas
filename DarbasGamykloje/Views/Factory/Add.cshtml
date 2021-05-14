@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Add";
+    var assignmentcount = 0;
 }
 
 <h2>Add Workspace</h2>
@@ -10,48 +11,134 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>AddWorkspaceView</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.fk_Factoryid_Factory, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.fk_Factoryid_Factory, new { htmlAttributes = new { @class = "form-control", @readonly = "@readonly" } })
+    <div class="form-horizontal">
+        <h4>AddWorkspaceView</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <fieldset>
+            <legend>New Workspace</legend>
+            <div class="form-group">
+                @Html.LabelFor(model => model.fk_Factoryid_Factory, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fk_Factoryid_Factory, new { htmlAttributes = new { @class = "form-control", @readonly = "@readonly" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </fieldset>
+        @{if (Model.assignments != null)
+            {
+                assignmentcount = Model.assignments.Count;
+            }
+            else
+            {
+                assignmentcount = 0;
+            }
+        }
+        <fieldset>
+            <legend>Workspace Assignments</legend>
+            <table class="table table-responsive" id="assignments_table">
+                <thead>
+                    <tr>
+                        <th>startTime</th>
+                        <th>endTime</th>
+                        <th>isCompleted</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{for (int i = 0; i < Model.assignments.Count; i++)
+                        {
+                            <tr id="tablerow @i">
+                                <td>
+                                    @Html.EditorFor(model => model.assignments[i].startTime, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.assignments[i].endTime, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                                <td>
+                                    @Html.EditorFor(model => model.assignments[i].isCompleted, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                                <td><button type="button" class="btn btn-primary" onclick="removeTr(this);">Remove</button></td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <input type="hidden" disabled value="@assignmentcount" id="hCount" />
+            <button type="button" id="add" class="btn btn-info pull-right">Add</button>
+        </fieldset>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
+    @if (ViewBag.error != null)
+    {
+        <h5 style="color:red"> @ViewBag.error</h5>
+    }
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    $(function () {
+        $('#add').click(function () {
+            $(  '<tr id="tablerow ' + $('#hCount').val() + '">' +
+                '<td>' +
+                '<input type="date" , class = "form-control"  name="assignments[' + $('#hCount').val() + '].startTime" />' +
+                '</td>' +
+                '<td>' +
+                '<input type="date" class = "form-control" name="assignments[' + $('#hCount').val() + '].endTime"  />' +
+                '</td>' +
+                '<td>' +
+                '<input type="checkbox" class = "form-control"  name="assignments[' + $('#hCount').val() + '].isCompleted"  />' +
+                '</td>' +
+                '<td>' +
+                '<button type="button" class="btn btn-primary" onclick="removeTr(this);">Remove</button>' +
+                '</td>' +
+                '</tr>').appendTo('#assignments_table');
+            $('#hCount').val(Number($('#hCount').val()) + 1);
+        });
+    });
+    function removeTr(btn) {
+        $(btn).closest('tr').remove();
+        var cnt = 0;
+
+        $("#assignments_table tbody tr").each(function () {
+            var tmp_row = "<tr>" + $(this).html() + "</tr>";
+            var new_tmp_row = tmp_row.replace(/\[(.)\]/g, "[" + cnt + "]");
+            new_tmp_row = new_tmp_row.replace(/\_(.)\_/g, "_" + cnt + "_");
+            console.log(new_tmp_row)
+            $(this).replaceWith(new_tmp_row);
+            cnt = cnt + 1;
+        });
+
+        $('#hCount').val(cnt);
+    }
+    </script>
 }
+
+

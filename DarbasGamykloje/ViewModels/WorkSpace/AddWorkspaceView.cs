@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DarbasGamykloje.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -21,5 +22,6 @@ namespace DarbasGamykloje.ViewModels.WorkSpace
         [Required]
         public int fk_Factoryid_Factory { get; set; }
 
+        public virtual IList<Assignment> assignments { get; set; }
     }
 }
