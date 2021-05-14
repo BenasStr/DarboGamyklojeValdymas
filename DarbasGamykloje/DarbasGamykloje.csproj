@@ -168,6 +168,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LivingSpace\LivingSpaceController.cs" />
     <Compile Include="Controllers\Schedule\ScheduleController.cs" />
+    <Compile Include="Controllers\Worker\WorkerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -179,6 +180,7 @@
     <Compile Include="Repos\AssignmentsRepository.cs" />
     <Compile Include="Repos\LivingSpaceRepository.cs" />
     <Compile Include="Repos\ScheduleRepository.cs" />
+    <Compile Include="Repos\WorkerRepository.cs" />
     <Compile Include="ViewModels\Schedules\AssignmentDetailsView.cs" />
     <Compile Include="ViewModels\Schedules\AssignmentsListView.cs" />
     <Compile Include="ViewModels\LivingSpace\AddLivingSpaceview.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="ViewModels\LivingSpace\EditLivingSpaceView.cs" />
     <Compile Include="ViewModels\LivingSpace\LivingSpaceListView.cs" />
     <Compile Include="ViewModels\Schedules\ScheduleListView.cs" />
+    <Compile Include="ViewModels\Worker\WorkerView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -229,6 +232,7 @@
     <Content Include="Views\Assignments\Index.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Assignments\AssignmentView.cshtml" />
+    <Content Include="Views\Worker\CompletedWork.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
