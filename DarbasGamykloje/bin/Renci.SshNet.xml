@@ -3405,6 +3405,86 @@
             </summary>
             <param name="info">Request information.</param>
         </member>
+        <member name="T:Renci.SshNet.Common.CountdownEvent">
+            <summary>
+            Represents a synchronization primitive that is signaled when its count reaches zero.
+            </summary>
+        </member>
+        <member name="M:Renci.SshNet.Common.CountdownEvent.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of <see cref="T:Renci.SshNet.Common.CountdownEvent"/> class with the specified count.
+            </summary>
+            <param name="initialCount">The number of signals initially required to set the <see cref="T:Renci.SshNet.Common.CountdownEvent"/>.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="initialCount"/> is less than zero.</exception>
+            <remarks>
+            If <paramref name="initialCount"/> is <c>zero</c>, the event is created in a signaled state.
+            </remarks>
+        </member>
+        <member name="P:Renci.SshNet.Common.CountdownEvent.CurrentCount">
+            <summary>
+            Gets the number of remaining signals required to set the event.
+            </summary>
+            <value>
+            The number of remaining signals required to set the event.
+            </value>
+        </member>
+        <member name="P:Renci.SshNet.Common.CountdownEvent.IsSet">
+            <summary>
+            Indicates whether the <see cref="T:Renci.SshNet.Common.CountdownEvent"/>'s current count has reached zero.
+            </summary>
+            <value>
+            <c>true</c> if the current count is zero; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Renci.SshNet.Common.CountdownEvent.WaitHandle">
+            <summary>
+            Gets a <see cref="P:Renci.SshNet.Common.CountdownEvent.WaitHandle"/> that is used to wait for the event to be set.
+            </summary>
+            <value>
+            A <see cref="P:Renci.SshNet.Common.CountdownEvent.WaitHandle"/> that is used to wait for the event to be set.
+            </value>
+            <exception cref="T:System.ObjectDisposedException">The current instance has already been disposed.</exception>
+        </member>
+        <member name="M:Renci.SshNet.Common.CountdownEvent.Signal">
+            <summary>
+            Registers a signal with the <see cref="T:Renci.SshNet.Common.CountdownEvent"/>, decrementing the value of <see cref="P:Renci.SshNet.Common.CountdownEvent.CurrentCount"/>.
+            </summary>
+            <returns>
+            <c>true</c> if the signal caused the count to reach zero and the event was set; otherwise, <c>false</c>.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">The current instance has already been disposed.</exception>
+            <exception cref="T:System.InvalidOperationException">The current instance is already set.</exception>
+        </member>
+        <member name="M:Renci.SshNet.Common.CountdownEvent.AddCount">
+            <summary>
+            Increments the <see cref="T:Renci.SshNet.Common.CountdownEvent"/>'s current count by one.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">The current instance has already been disposed.</exception>
+            <exception cref="T:System.InvalidOperationException">The current instance is already set.</exception>
+            <exception cref="T:System.InvalidOperationException"><see cref="P:Renci.SshNet.Common.CountdownEvent.CurrentCount"/> is equal to or greather than <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:Renci.SshNet.Common.CountdownEvent.Wait(System.TimeSpan)">
+            <summary>
+            Blocks the current thread until the <see cref="T:Renci.SshNet.Common.CountdownEvent"/> is set, using a <see cref="T:System.TimeSpan"/>
+            to measure the timeout.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, or a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely.</param>
+            <returns>
+            <c>true</c> if the <see cref="T:Renci.SshNet.Common.CountdownEvent"/> was set; otherwise, <c>false</c>.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">The current instance has already been disposed.</exception>
+        </member>
+        <member name="M:Renci.SshNet.Common.CountdownEvent.Dispose">
+            <summary>
+            Releases all resources used by the current instance of the <see cref="T:Renci.SshNet.Common.CountdownEvent"/> class.
+            </summary>
+        </member>
+        <member name="M:Renci.SshNet.Common.CountdownEvent.Dispose(System.Boolean)">
+            <summary>
+            Releases the unmanaged resources used by the <see cref="T:Renci.SshNet.Common.CountdownEvent"/>, and optionally releases the managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
         <member name="T:Renci.SshNet.Common.DerData">
             <summary>
             Base class for DER encoded data.
@@ -3648,6 +3728,30 @@
             </summary>
             <param name="data">The data.</param>
             <param name="length">The length to pad to.</param>
+        </member>
+        <member name="M:Renci.SshNet.Common.Extensions.Dispose(System.Net.Sockets.Socket)">
+            <summary>
+            Disposes the specified socket.
+            </summary>
+            <param name="socket">The socket.</param>
+        </member>
+        <member name="M:Renci.SshNet.Common.Extensions.Dispose(System.Threading.WaitHandle)">
+            <summary>
+            Disposes the specified handle.
+            </summary>
+            <param name="handle">The handle.</param>
+        </member>
+        <member name="M:Renci.SshNet.Common.Extensions.Dispose(System.Security.Cryptography.HashAlgorithm)">
+            <summary>
+            Disposes the specified algorithm.
+            </summary>
+            <param name="algorithm">The algorithm.</param>
+        </member>
+        <member name="M:Renci.SshNet.Common.Extensions.Clear(System.Text.StringBuilder)">
+            <summary>
+            Clears the contents of the string builder.
+            </summary>
+            <param name="value">The <see cref="T:System.Text.StringBuilder"/> to clear.</param>
         </member>
         <member name="T:Renci.SshNet.Common.HostKeyEventArgs">
             <summary>
@@ -6155,15 +6259,15 @@
         </member>
         <member name="M:Renci.SshNet.ForwardedPortDynamic.InitializePendingChannelCountdown">
             <summary>
-            Initializes the <see cref="T:System.Threading.CountdownEvent"/>.
+            Initializes the <see cref="T:Renci.SshNet.Common.CountdownEvent"/>.
             </summary>
             <remarks>
             <para>
-            When the port is started for the first time, a <see cref="T:System.Threading.CountdownEvent"/> is created with an initial count
+            When the port is started for the first time, a <see cref="T:Renci.SshNet.Common.CountdownEvent"/> is created with an initial count
             of <c>1</c>.
             </para>
             <para>
-            On subsequent (re)starts, we'll dispose the current <see cref="T:System.Threading.CountdownEvent"/> and create a new one with
+            On subsequent (re)starts, we'll dispose the current <see cref="T:Renci.SshNet.Common.CountdownEvent"/> and create a new one with
             initial count of <c>1</c>.
             </para>
             </remarks>
@@ -6297,15 +6401,15 @@
         </member>
         <member name="M:Renci.SshNet.ForwardedPortLocal.InitializePendingChannelCountdown">
             <summary>
-            Initializes the <see cref="T:System.Threading.CountdownEvent"/>.
+            Initializes the <see cref="T:Renci.SshNet.Common.CountdownEvent"/>.
             </summary>
             <remarks>
             <para>
-            When the port is started for the first time, a <see cref="T:System.Threading.CountdownEvent"/> is created with an initial count
+            When the port is started for the first time, a <see cref="T:Renci.SshNet.Common.CountdownEvent"/> is created with an initial count
             of <c>1</c>.
             </para>
             <para>
-            On subsequent (re)starts, we'll dispose the current <see cref="T:System.Threading.CountdownEvent"/> and create a new one with
+            On subsequent (re)starts, we'll dispose the current <see cref="T:Renci.SshNet.Common.CountdownEvent"/> and create a new one with
             initial count of <c>1</c>.
             </para>
             </remarks>
@@ -6405,15 +6509,15 @@
         </member>
         <member name="M:Renci.SshNet.ForwardedPortRemote.InitializePendingChannelCountdown">
             <summary>
-            Initializes the <see cref="T:System.Threading.CountdownEvent"/>.
+            Initializes the <see cref="T:Renci.SshNet.Common.CountdownEvent"/>.
             </summary>
             <remarks>
             <para>
-            When the port is started for the first time, a <see cref="T:System.Threading.CountdownEvent"/> is created with an initial count
+            When the port is started for the first time, a <see cref="T:Renci.SshNet.Common.CountdownEvent"/> is created with an initial count
             of <c>1</c>.
             </para>
             <para>
-            On subsequent (re)starts, we'll dispose the current <see cref="T:System.Threading.CountdownEvent"/> and create a new one with
+            On subsequent (re)starts, we'll dispose the current <see cref="T:Renci.SshNet.Common.CountdownEvent"/> and create a new one with
             initial count of <c>1</c>.
             </para>
             </remarks>
