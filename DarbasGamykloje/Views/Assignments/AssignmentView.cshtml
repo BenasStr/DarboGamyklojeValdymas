@@ -1,0 +1,31 @@
+﻿@model DarbasGamykloje.ViewModels.AssignmentDetailsView
+
+@{
+    ViewBag.Title = "AssignmentView";
+}
+
+<h2>AssignmentView</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => Model.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.description)
+        </td>
+    </tr>
+
+</table>

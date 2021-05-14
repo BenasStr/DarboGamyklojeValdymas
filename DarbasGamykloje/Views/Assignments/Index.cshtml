@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DarbasGamykloje.ViewModels.AssignmentsListView>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.startTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isCompleted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.startTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isCompleted)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "AssignmentView", "Assignments", new { id=item.id_Assignments}, null)
+        </td>
+    </tr>
+}
+
+</table>

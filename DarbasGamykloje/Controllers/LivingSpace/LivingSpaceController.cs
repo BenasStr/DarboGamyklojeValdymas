@@ -12,7 +12,7 @@ namespace DarbasGamykloje.Controllers.LivingSpace
     {
         LivingSpaceRepository LivingSpaceRepos = new LivingSpaceRepository();
 
-        public ActionResult Index()
+        public ActionResult Belekas()
         {
             ModelState.Clear();
             return View(LivingSpaceRepos.GetLivingSpaces());
@@ -96,6 +96,7 @@ namespace DarbasGamykloje.Controllers.LivingSpace
                 {
                     used = true;
                     ViewBag.naudojama = "PEOPLE ARE STILL LOIVING HERE";
+                    return View(LivingSpaceRepos.GetLivingSpaces());
                 }
 
                 if (!used)
