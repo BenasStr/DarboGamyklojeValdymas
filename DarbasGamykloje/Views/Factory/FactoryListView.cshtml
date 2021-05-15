@@ -20,6 +20,12 @@
         <th>
             @Html.DisplayNameFor(model => model.fk_Managerid_Manager)
         </th>
+        <th>
+            <label>from: </label>
+        </th>
+        <th>
+            <label>to: </label>
+        </th>
         <th></th>
     </tr>
 
@@ -36,14 +42,16 @@
         @Html.DisplayFor(modelItem => item.fk_Managerid_Manager)
     </td>
     <td>
-        @Html.EditorFor(Model => item.from)
+        @Html.EditorFor(modelItem => item.from, new { Model = item.from })
     </td>
     <td>
-        @Html.EditorFor(Model => item.to)
+        @Html.EditorFor(modelItem => item.to, new { Model = item.to })
     </td>
     <td>
         @Html.ActionLink("Generate schedule for this factory", "../Schedule/FactorySchedule",
-        new { id = item.id_Factory,from = item.from,to = item.to },null)
+        new { id = item.id_Factory, from = item.from, to = item.to }, null)
+        <input class="btn btn-default" type="submit" value="Select">
+
     </td>
 </tr>
     }

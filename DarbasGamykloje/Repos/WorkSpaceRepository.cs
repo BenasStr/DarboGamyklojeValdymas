@@ -47,7 +47,7 @@ namespace DarbasGamykloje.Repos
                 {
                     name = Convert.ToString(dr["name"]),
                     description = Convert.ToString(dr["description"]),
-                    id_Workspace = Convert.ToInt32(dr["id_Workspace "]),
+                    id_Workspace = Convert.ToInt32(dr["id_Workspace"]),
                     fk_Factoryid_Factory = Convert.ToInt32(dr["fk_Factoryid_Factory"])
                 });
             }

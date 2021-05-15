@@ -28,16 +28,16 @@ namespace DarbasGamykloje.Controllers.Schedule
         public ActionResult FactorySchedule(int id, DateTime from, DateTime to)
         {
             List<WorkerView> workers = WorkerRepos.GetFactoryWorkersThatAreFreeBetween(id,from,to);
-            List<AddWorkspaceView> workspaces = worksSpaceRepos.GetFactoryWorkspaces(id);
+            //List<AddWorkspaceView> workspaces = worksSpaceRepos.GetFactoryWorkspaces(id);
 
-            foreach(WorkerView worker in workers)
+/*            foreach(WorkerView worker in workers)
             {
                 ScheduleListView model = new ScheduleListView();
                 model.endDate = to;
                 model.startDate = from;
                 model.fk_Workerid_Worker = worker.id_Worker;
                 ScheduleRepos.addSchedule(model);
-            }
+            }*/
 
             return View(ScheduleRepos.GetScheduleByFactoryId(id));
         }
