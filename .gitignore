@@ -364,3 +364,4 @@ FodyWeavers.xsd
 *.pdb
 DarbasGamykloje/obj/Debug/DarbasGamykloje.csproj.CoreCompileInputs.cache
 DarbasGamykloje/obj/Debug/DarbasGamykloje.csproj.FileListAbsolute.txt
+*.dll

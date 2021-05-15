@@ -68,5 +68,26 @@ namespace DarbasGamykloje.Repos
 
             return Schedule;
         }
+        public bool addSchedule(ScheduleListView model)
+        {
+            List<FactoryListView> Factories = new List<FactoryListView>();
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+            string sqlQuery = @"INSERT INTO `schedule`(`startDate`, `endDate`, `id_Schedule`, `fk_Workerid_Worker`) VALUES 
+                                (?startDate,?endDate,NULL, ?fk_Workerid_Worker)";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+
+            mySqlCommand.Parameters.Add("?startDate", MySqlDbType.VarChar).Value = model.startDate;
+            mySqlCommand.Parameters.Add("?endDate", MySqlDbType.VarChar).Value = model.endDate;
+            mySqlCommand.Parameters.Add("?fk_Workerid_Worker", MySqlDbType.Int32).Value = model.fk_Workerid_Worker;
+
+
+            mySqlConnection.Open();
+            mySqlCommand.ExecuteNonQuery();
+            mySqlConnection.Close();
+
+            return true;
+        }
+
     }
 }
