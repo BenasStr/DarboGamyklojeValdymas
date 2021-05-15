@@ -11,8 +11,8 @@ namespace DarbasGamykloje.Controllers.LivingSpace
     public class LivingSpaceController : Controller
     {
         LivingSpaceRepository LivingSpaceRepos = new LivingSpaceRepository();
-
-        public ActionResult Belekas()
+        WorkerRepository WorkerRepo = new WorkerRepository();
+        public ActionResult Index()
         {
             ModelState.Clear();
             return View(LivingSpaceRepos.GetLivingSpaces());
@@ -54,8 +54,6 @@ namespace DarbasGamykloje.Controllers.LivingSpace
                 }
             }
 
-
-
             if (numberOfLivingSpaces == 1)
             {
                 if (collection.adress == null || collection.roomNumber == 0 || collection.maxCapacity == 0)
@@ -81,33 +79,75 @@ namespace DarbasGamykloje.Controllers.LivingSpace
 
         }
 
-        public ActionResult Delete(string adress)
+        public ActionResult RoomList(string id)
         {
-            return View(LivingSpaceRepos.getLivingSpaceByAddress(adress));
+            List<EditLivingSpaceView> livingspace = LivingSpaceRepos.GetLivingSpaceById(id);
+            return View(livingspace);
+        }
+
+        public ActionResult Delete(string id)
+        {
+            DeleteLivingSpaceView adresas = new DeleteLivingSpaceView();
+            adresas.address = id;
+
+            return View(adresas);
         }
 
         [HttpPost]
-        public ActionResult Delete(string adress, FormCollection collection)
+        public ActionResult Delete(DeleteLivingSpaceView collection)
         {
+            List<WorkerView> workers = new List<WorkerView>();
+            workers = WorkerRepo.GetAllWorkers();
+
+            List<LivingSpaceListView> livingspaces = new List<LivingSpaceListView>();
+            livingspaces = LivingSpaceRepos.getLivingSpaceByAddress(collection.address);
+
+            bool rado = false;
+            foreach(var a in livingspaces)
+            {
+                foreach(var b in workers)
+                {
+                    if(a.id_LivingSpace == b.fk_LivingSpaceid_LivingSpace)
+                    {
+                        rado = true;
+                        break;
+                    }
+                }
+            }
+
+            if(rado == false)
+            {
+                LivingSpaceRepos.ConfirmDeleteLivingSpace(collection.address);
+                return RedirectToAction("Index");
+            }
+
+            TempData["err"] = "There are still users registered to this address";
+            return View();
+        }
+
+        public ActionResult EditLivingSpace(int id)
+        {
+            EditLivingSpaceView livingspace = LivingSpaceRepos.GetRoomById(id);
+            return View(livingspace);
+        }
+
+        [HttpPost]
+        public ActionResult EditLivingSpace(int id, EditLivingSpaceView collection)
+        {
+            TempData["err"] = "";
             try
             {
-                bool used = false;
-                if (LivingSpaceRepos.getWorkersInLivingSpaces(adress) > 0)
+                // Atnaujina kliento informacija
+                if (ModelState.IsValid)
                 {
-                    used = true;
-                    ViewBag.naudojama = "PEOPLE ARE STILL LOIVING HERE";
-                    return View(LivingSpaceRepos.GetLivingSpaces());
+                    LivingSpaceRepos.EditExistingRoom(collection);
                 }
 
-                if (!used)
-                {
-                    LivingSpaceRepos.ConfirmDeleteLivingSpace(adress);
-                }
-                return RedirectToAction("Index");
+                return RedirectToAction("RoomList", new { id = collection.adress });
             }
             catch
             {
-                return View();
+                return View(collection);
             }
         }
     }

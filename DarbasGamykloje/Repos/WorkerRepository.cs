@@ -36,5 +36,30 @@ namespace DarbasGamykloje.Repos
             worker.fk_Factoryid_Factory = Convert.ToInt32(dt.Rows[0]["fk_Factoryid_Factory"]);
             return worker;
         }
+
+        public List<WorkerView> GetAllWorkers()
+        {
+            List<WorkerView> workers = new List<WorkerView>();
+
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+            string sqlQuery = @"SELECT fk_LivingSpaceid_LivingSpace FROM worker";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+            mySqlConnection.Open();
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                workers.Add(new WorkerView
+                {
+                    fk_LivingSpaceid_LivingSpace = Convert.ToInt32(dr["fk_LivingSpaceid_LivingSpace"]),
+                });
+            }
+
+            return workers;
+        }
     }
 }
