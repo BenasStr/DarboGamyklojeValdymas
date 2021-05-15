@@ -642,6 +642,8 @@
     <Content Include="Views\Factory\FactoryListForSelectingWorkers.cshtml" />
     <Content Include="Views\Factory\WorkerListInFactory.cshtml" />
     <Content Include="Views\Worker\CompletedWork.cshtml" />
+    <Content Include="Views\LivingSpace\EditLivingSpace.cshtml" />
+    <Content Include="Views\LivingSpace\RoomList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
