@@ -17,5 +17,11 @@ namespace DarbasGamykloje.Controllers.Schedule
             ModelState.Clear();
             return View(ScheduleRepos.GetScheduleById(ID));
         }
+
+        public ActionResult FactorySchedule()
+        {
+            ModelState.Clear();
+            return View(ScheduleRepos.GetScheduleByFactoryId(ID));
+        }
     }
 }

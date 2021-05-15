@@ -642,10 +642,13 @@
     <Content Include="Views\Factory\FactoryListForSelectingWorkers.cshtml" />
     <Content Include="Views\Factory\WorkerListInFactory.cshtml" />
     <Content Include="Views\Worker\CompletedWork.cshtml" />
+    <Content Include="Views\Factory\FactoryListView.cshtml" />
+    <Content Include="Views\Schedule\FactorySchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\Workspace\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

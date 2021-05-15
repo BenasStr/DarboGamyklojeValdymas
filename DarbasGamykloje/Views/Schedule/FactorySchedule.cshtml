@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DarbasGamykloje.ViewModels.ScheduleListView>
+
+@{
+    ViewBag.Title = "FactorySchedule";
+}
+
+<h2>FactorySchedule</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.startDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.endDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fk_Workerid_Worker)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.id_Schedule)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.startDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.endDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fk_Workerid_Worker)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_Schedule)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

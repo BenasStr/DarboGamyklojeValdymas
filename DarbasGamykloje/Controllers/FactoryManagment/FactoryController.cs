@@ -16,8 +16,13 @@ namespace DarbasGamykloje.Controllers.FactoryManagment
         {
             return View(factoryrepos.GetAllFactories());
         }
-        
+
         public ActionResult FactoryListForSelectingWorkers()
+        {
+            return View(factoryrepos.GetAllFactories());
+        }
+
+        public ActionResult FactoryListView()
         {
             return View(factoryrepos.GetAllFactories());
         }

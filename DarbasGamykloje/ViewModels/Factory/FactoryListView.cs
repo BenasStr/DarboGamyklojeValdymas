@@ -13,5 +13,10 @@ namespace DarbasGamykloje.ViewModels
         [DisplayName("Factory ID")]
         public int id_Factory { get; set; }
         public int fk_Managerid_Manager { get; set; }
+
+        public DateTime from { get; set; }
+
+        public DateTime to { get; set; }
+
     }
 }
