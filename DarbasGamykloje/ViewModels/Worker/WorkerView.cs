@@ -26,5 +26,8 @@ namespace DarbasGamykloje.ViewModels
         public int fk_RegisteredUserid_RegisteredUser { get; set; }
         [DisplayName("Factory ID")]
         public int fk_Factoryid_Factory { get; set; }
+
+        [DisplayName("Completed work")]
+        public int completedWork { get; set; }
     }
 }

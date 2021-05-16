@@ -1,81 +1,18 @@
-﻿@model IEnumerable<DarbasGamykloje.ViewModels.WorkerView>
+﻿@model DarbasGamykloje.ViewModels.WorkerView
 
 @{
     ViewBag.Title = "CompletedWork";
 }
-
-<h2>CompletedWork</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.salary)
+            @Html.DisplayNameFor(model => model.completedWork)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isDeleted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.numberOfDaysWorked)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.checkedSalaryCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.id_Worker)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fk_Managerid_Manager)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fk_LivingSpaceid_LivingSpace)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fk_RegisteredUserid_RegisteredUser)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fk_Factoryid_Factory)
-        </th>
-        <th></th>
     </tr>
-
-@foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.salary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isDeleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.numberOfDaysWorked)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.checkedSalaryCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.id_Worker)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fk_Managerid_Manager)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fk_LivingSpaceid_LivingSpace)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fk_RegisteredUserid_RegisteredUser)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fk_Factoryid_Factory)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => Model.completedWork)
         </td>
     </tr>
-}
 
 </table>

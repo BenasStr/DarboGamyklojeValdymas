@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DarbasGamykloje.Repos;
@@ -21,8 +22,15 @@ namespace DarbasGamykloje.Controllers.Worker
 
         public ActionResult CompletedWork()
         {
+            int completedAssignments = 0;
             WorkerView Worker = WorkerRepos.GetWorkerById(WorkerID);
-            return View();
+            List<ScheduleListView> Schedules = ScheduleRepos.GetScheduleById(Worker.id_Worker);
+            foreach(var schedule in Schedules)
+            {
+                completedAssignments += AssignmentsRepos.GetCompletedAssignmentCount(schedule.id_Schedule);
+            }
+            Worker.completedWork = completedAssignments;
+            return View(Worker);
         }
     }
 }

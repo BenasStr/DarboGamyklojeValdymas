@@ -1,39 +1,31 @@
-﻿@model DarbasGamykloje.Models.LivingSpace
+﻿@model DarbasGamykloje.ViewModels.DeleteLivingSpaceView
 
-@{
-    ViewBag.Title = "Delete";
-}
-
-<h2>Living space deletion</h2>
 
 <h3>Do you want to delete living space?</h3>
+
+<h3 style="color:red">@TempData["err"]</h3>
 <div>
-    <h4>LivingSpace</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.adress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.adress)
-        </dd>
-    </dl>
-
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            @if (ViewBag.used != null)
-            {
-                <h5 style="color:red">@ViewBag.used</h5>
-            }
-            else
-            {
-                <input type="submit" value="Delete" class="btn btn-danger" />
-            }
-            @Html.ActionLink("BackToList", "Index", "LivingSpace", new { @class = "btn btn-default" })
-        </div>
-    }
+        <fieldset>
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Išsaugoti" class="btn btn-success" />
+                </div>
+            </div>
+        </fieldset>
+     }
 </div>
