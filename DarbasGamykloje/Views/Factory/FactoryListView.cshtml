@@ -49,9 +49,7 @@
     </td>
     <td>
         @Html.ActionLink("Generate schedule for this factory", "../Schedule/FactorySchedule",
-        new { id = item.id_Factory, from = item.from, to = item.to }, null)
-        <input class="btn btn-default" type="submit" value="Select">
-
+        new { id = item.id_Factory, from = item.from, to = item.to })
     </td>
 </tr>
     }

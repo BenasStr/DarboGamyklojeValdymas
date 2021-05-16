@@ -78,8 +78,8 @@ namespace DarbasGamykloje.Repos
                                 "AND worker.id_Worker NOT IN (" +
                                     "SELECT schedule.fk_Workerid_Worker " +
                                     "FROM `schedule` " +
-                                    "WHERE schedule.startDate < ?to " +
-                                    "AND schedule.endDate > ?from)";
+                                    "WHERE schedule.startDate <= ?to " +
+                                    "AND schedule.endDate >= ?from)";
             MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
             mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
             mySqlCommand.Parameters.Add("?from", MySqlDbType.Date).Value = from;
