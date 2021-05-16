@@ -25,10 +25,10 @@ namespace DarbasGamykloje.Controllers.Schedule
             return View(ScheduleRepos.GetScheduleById(ID));
         }
 
-        public ActionResult FactorySchedule(int id, DateTime from, DateTime to)
+        public ActionResult FactorySchedule(FactoryListView factory)
         {
-            List<WorkerView> workers = WorkerRepos.GetFactoryWorkersThatAreFreeBetween(id,from,to);
-            //List<AddWorkspaceView> workspaces = worksSpaceRepos.GetFactoryWorkspaces(id);
+            List<WorkerView> workers = WorkerRepos.GetFactoryWorkersThatAreFreeBetween(factory.id_Factory,factory.from,factory.to);
+            List<AddWorkspaceView> workspaces = worksSpaceRepos.GetFactoryWorkspaces(factory.id_Factory);
 
 /*            foreach(WorkerView worker in workers)
             {
@@ -39,7 +39,7 @@ namespace DarbasGamykloje.Controllers.Schedule
                 ScheduleRepos.addSchedule(model);
             }*/
 
-            return View(ScheduleRepos.GetScheduleByFactoryId(id));
+            return View(ScheduleRepos.GetScheduleByFactoryId(factory.id_Factory));
         }
     }
 }

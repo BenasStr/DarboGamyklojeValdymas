@@ -1,4 +1,8 @@
-﻿@model IEnumerable<DarbasGamykloje.ViewModels.FactoryListView>
+﻿@using DarbasGamykloje.Controllers.Schedule
+@model IEnumerable<DarbasGamykloje.ViewModels.FactoryListView>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script src="~/Resources/FactoryListView.js"></script>
 
 @{
     ViewBag.Title = "FactoryListView";
@@ -6,9 +10,6 @@
 
 <h2>FactoryListView</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -31,27 +32,26 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.maxCapacity)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.id_Factory)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.fk_Managerid_Manager)
-    </td>
-    <td>
-        @Html.EditorFor(modelItem => item.from, new { Model = item.from })
-    </td>
-    <td>
-        @Html.EditorFor(modelItem => item.to, new { Model = item.to })
-    </td>
-    <td>
-        @Html.ActionLink("Generate schedule for this factory", "../Schedule/FactorySchedule",
-        new { id = item.id_Factory, from = item.from, to = item.to })
-    </td>
-</tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.maxCapacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_Factory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fk_Managerid_Manager)
+            </td>
+            <td>
+                <input type="text" value="@item.from.ToString()" data-factory-id="@item.id_Factory" class="date-from-js"/>
+            </td>
+            <td>
+                <input type="text" value="@item.to.ToString()" data-factory-id="@item.id_Factory" class="date-to-js" />
+            </td>
+            <td>
+                <button type="submit" data-factory-id="@item.id_Factory" class="btn btn-primary submit-js">Generate schedule for this factory</button>
+            </td>
+        </tr>
     }
 
 </table>

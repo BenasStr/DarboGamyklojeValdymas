@@ -467,6 +467,7 @@
     <Content Include="packages\System.Runtime.CompilerServices.Unsafe.4.5.2\version.txt" />
     <Content Include="packages\WebGrease.1.6.0\lib\WebGrease.dll" />
     <Content Include="packages\WebGrease.1.6.0\tools\WG.EXE" />
+    <Content Include="Resources\FactoryListView.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="obj\Debug\DarbasGamykloje.csproj.CopyComplete" />
