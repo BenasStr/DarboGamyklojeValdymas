@@ -13,7 +13,6 @@
             const targetFactoryId = currentDate.data('factory-id');
             if (targetFactoryId === factoryId) {
                 dateFromToSend = currentDate.val();
-                break;
             }
         });
         datasTo.each(function (e) {
@@ -21,7 +20,6 @@
             const targetFactoryId = currentDate.data('factory-id');
             if (targetFactoryId === factoryId) {
                 dateToToSend = currentDate.val();
-                break;
             }
         });
         const data = {

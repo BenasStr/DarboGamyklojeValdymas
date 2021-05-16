@@ -122,8 +122,8 @@ namespace DarbasGamykloje.Repos
             MySqlCommand mySqlCommand = new MySqlCommand(sqlquery, mySqlConnection);
             mySqlCommand.Parameters.Add("?startDate", MySqlDbType.Date).Value = schedule.startDate;
             mySqlCommand.Parameters.Add("?endDate", MySqlDbType.Date).Value = schedule.endDate;
-            mySqlCommand.Parameters.Add("?id_Schedule ", MySqlDbType.Int32).Value = schedule.id_Schedule;
-            mySqlCommand.Parameters.Add("?fk_Workerid_Worker ", MySqlDbType.Int32).Value = schedule.fk_Workerid_Worker;
+            mySqlCommand.Parameters.Add("?id_Schedule", MySqlDbType.Int32).Value = schedule.id_Schedule;
+            mySqlCommand.Parameters.Add("?fk_Workerid_Worker", MySqlDbType.Int32).Value = schedule.fk_Workerid_Worker;
             mySqlConnection.Open();
             mySqlCommand.ExecuteNonQuery();
             mySqlConnection.Close();
