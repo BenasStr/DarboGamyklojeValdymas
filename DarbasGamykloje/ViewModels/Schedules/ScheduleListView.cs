@@ -14,7 +14,7 @@ namespace DarbasGamykloje.ViewModels
         public DateTime endDate { get; set; }
         [DisplayName("Worker ID")]
         public int fk_Workerid_Worker { get; set; }
-        [DisplayName("ID")]
+        [DisplayName("Schedule ID")]
         public int id_Schedule { get; set; }
     }
 }

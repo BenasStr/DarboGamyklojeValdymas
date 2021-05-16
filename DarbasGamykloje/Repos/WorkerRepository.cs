@@ -113,9 +113,9 @@ namespace DarbasGamykloje.Repos
             MySqlConnection mySqlConnection = new MySqlConnection(connStr);
             string sqlQuery =   "SELECT COUNT(DISTINCT worker.id_Worker) " +
                                 "FROM `worker` INNER JOIN schedule ON schedule.fk_Workerid_Worker = worker.id_Worker " +
-                                "WHERE worker.fk_Factoryid_Factory = 1 " +
-                                  "AND schedule.startDate < '2021-05-05' " +
-                                  "AND schedule.endDate > '2021-05-03'";
+                                "WHERE worker.fk_Factoryid_Factory = ?id " +
+                                  "AND schedule.startDate < ?to " +
+                                  "AND schedule.endDate > ?from";
             MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
             mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
             mySqlCommand.Parameters.Add("?from", MySqlDbType.Date).Value = from;

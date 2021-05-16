@@ -38,6 +38,27 @@ namespace DarbasGamykloje.Repos
 
             return Schedule;
         }
+        public ScheduleListView GetScheduleByItemId(int id)
+        {
+            ScheduleListView Schedule = new ScheduleListView();
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+            string sqlQuery = @"SELECT * FROM schedule WHERE id_Schedule = ?id";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlConnection.Open();
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            Schedule.startDate = Convert.ToDateTime(dt.Rows[0]["startDate"]);
+            Schedule.endDate = Convert.ToDateTime(dt.Rows[0]["endDate"]);
+            Schedule.id_Schedule = Convert.ToInt32(dt.Rows[0]["id_Schedule"]);
+            Schedule.fk_Workerid_Worker = Convert.ToInt32(dt.Rows[0]["fk_Workerid_Worker"]);
+
+            return Schedule;
+        }
 
         public List<ScheduleListView> GetScheduleByFactoryId(int id)
         {
@@ -88,6 +109,27 @@ namespace DarbasGamykloje.Repos
 
             return true;
         }
+
+        public bool updateSchedule(ScheduleListView schedule)
+        {
+            string conn = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(conn);
+            string sqlquery = @"UPDATE schedule a SET a.startDate=?startDate,
+                                                      a.endDate=?endDate,
+                                                      a.id_Schedule =?id_Schedule,
+                                                      a.fk_Workerid_Worker =?fk_Workerid_Worker  
+                                                WHERE a.id_Schedule   =" + schedule.id_Schedule;
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlquery, mySqlConnection);
+            mySqlCommand.Parameters.Add("?startDate", MySqlDbType.Date).Value = schedule.startDate;
+            mySqlCommand.Parameters.Add("?endDate", MySqlDbType.Date).Value = schedule.endDate;
+            mySqlCommand.Parameters.Add("?id_Schedule ", MySqlDbType.Int32).Value = schedule.id_Schedule;
+            mySqlCommand.Parameters.Add("?fk_Workerid_Worker ", MySqlDbType.Int32).Value = schedule.fk_Workerid_Worker;
+            mySqlConnection.Open();
+            mySqlCommand.ExecuteNonQuery();
+            mySqlConnection.Close();
+            return true;
+        }
+
 
     }
 }

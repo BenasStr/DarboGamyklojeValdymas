@@ -645,6 +645,7 @@
     <Content Include="Views\Worker\CompletedWork.cshtml" />
     <Content Include="Views\Factory\FactoryListView.cshtml" />
     <Content Include="Views\Schedule\FactorySchedule.cshtml" />
+    <Content Include="Views\Schedule\ScheduleEditView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
