@@ -1,0 +1,30 @@
+﻿@model DarbasGamykloje.ViewModels.WorkerList
+
+@{ ViewBag.Title = "View"; }
+
+<h2>Workers Salary</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+    </dl>
+
+    @Html.ActionLink("Back to list", "WorkerListInFactory", "Factory", new { id = Model.id_Worker }, null)
+</div>

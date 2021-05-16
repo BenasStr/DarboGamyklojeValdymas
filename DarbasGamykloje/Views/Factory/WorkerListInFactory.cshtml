@@ -1,39 +1,43 @@
-﻿@model IEnumerable<DarbasGamykloje.ViewModels.FactoryListView>
+﻿@model IEnumerable<DarbasGamykloje.ViewModels.WorkerList>
 
 @{ ViewBag.Title = "View"; }
 
-<h2>View</h2>
+<h2>Workers in factory</h2>
 
-<table class="table">
+<div>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.id_Worker)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.maxCapacity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.id_Factory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fk_Managerid_Manager)
-        </th>
-        <th></th>
-    </tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Surname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_Worker)
+        </td>
+        <td>
+            @Html.ActionLink("Check Salary", "WorkerSalary", new { id = item.id_Worker, name = item.Name, surname = item.Surname })
+        </td>
+    </tr>}
 
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.maxCapacity)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.id_Factory)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.fk_Managerid_Manager)
-    </td>
-    <td>
-        @Html.ActionLink("Select", "WorkerListInFactory", new { id = item.id_Factory })
-    </td>
-</tr>
-}
+    </table>
 
-</table>
+    @Html.ActionLink("Back to list", "FactoryListForSelectingWorkers", "Factory")
+</div>

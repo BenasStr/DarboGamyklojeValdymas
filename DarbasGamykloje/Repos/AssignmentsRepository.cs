@@ -60,5 +60,31 @@ namespace DarbasGamykloje.Repos
 
             return Assignments;
         }
+
+        public int CountsCompletedAssignments(int id)
+        {
+            int count = 0;
+
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+
+            string sqlQuery = "SELECT COUNT(assignments.isCompleted) AS count " +
+                " FROM schedule" +
+                " INNER JOIN assignments" +
+                " ON assignments.fk_Scheduleid_Schedule = schedule.id_Schedule" +
+                " WHERE schedule.fk_Workerid_Worker = ?id" +
+                " AND assignments.isCompleted = 1";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlConnection.Open();
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            count = Convert.ToInt32(dt.Rows[0]["count"]);
+            return count;
+        }
     }
 }

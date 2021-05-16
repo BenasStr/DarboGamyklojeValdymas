@@ -38,5 +38,27 @@ namespace DarbasGamykloje.Repos
 
             return Schedule;
         }
+
+        public int CountDaysWorked(int id)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+
+            string sqlQuery = @"SELECT COUNT(schedule.id_Schedule) AS count 
+                                FROM schedule
+                                WHERE schedule.fk_Workerid_Worker = ?id";
+
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlConnection.Open();
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            int count = Convert.ToInt32(dt.Rows[0]["count"]);
+
+            return count;
+        }
     }
 }

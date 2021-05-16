@@ -165,6 +165,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\FactoryManagment\FactoryController.cs" />
+    <Compile Include="Controllers\FactoryManagment\ProfitController.cs" />
     <Compile Include="Controllers\FactoryManagment\WorkSpaceController.cs" />
     <Compile Include="Controllers\Schedule\AssignmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Models\Assignments.cs" />
     <Compile Include="Models\Factory.cs" />
     <Compile Include="Models\LivingSpace.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Models\WorksSpace.cs" />
@@ -189,11 +191,13 @@
     <Compile Include="Repos\AssignmentsRepository.cs" />
     <Compile Include="Repos\FactoryRepository.cs" />
     <Compile Include="Repos\LivingSpaceRepository.cs" />
+    <Compile Include="Repos\ProductRepository.cs" />
     <Compile Include="Repos\ScheduleRepository.cs" />
     <Compile Include="Repos\WorkerRepository.cs" />
     <Compile Include="Repos\WorkSpaceRepository.cs" />
     <Compile Include="ViewModels\Factory\FactoryEditViewModel.cs" />
     <Compile Include="ViewModels\Factory\FactoryListView.cs" />
+    <Compile Include="ViewModels\Factory\ProfitEvaluationView.cs" />
     <Compile Include="ViewModels\Schedules\AssignmentDetailsView.cs" />
     <Compile Include="ViewModels\Schedules\AssignmentsListView.cs" />
     <Compile Include="ViewModels\LivingSpace\AddLivingSpaceview.cs" />
@@ -201,6 +205,7 @@
     <Compile Include="ViewModels\LivingSpace\EditLivingSpaceView.cs" />
     <Compile Include="ViewModels\LivingSpace\LivingSpaceListView.cs" />
     <Compile Include="ViewModels\Schedules\ScheduleListView.cs" />
+    <Compile Include="ViewModels\Worker\WorkerList.cs" />
     <Compile Include="ViewModels\Worker\WorkerView.cs" />
     <Compile Include="ViewModels\WorkSpace\AddWorkspaceView.cs" />
   </ItemGroup>
@@ -642,10 +647,13 @@
     <Content Include="Views\Factory\FactoryListForSelectingWorkers.cshtml" />
     <Content Include="Views\Factory\WorkerListInFactory.cshtml" />
     <Content Include="Views\Worker\CompletedWork.cshtml" />
+    <Content Include="Views\Factory\WorkerSalary.cshtml" />
+    <Content Include="Views\Factory\ProfitEvaluationView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\Profit\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

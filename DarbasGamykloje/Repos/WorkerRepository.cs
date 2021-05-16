@@ -36,5 +36,66 @@ namespace DarbasGamykloje.Repos
             worker.fk_Factoryid_Factory = Convert.ToInt32(dt.Rows[0]["fk_Factoryid_Factory"]);
             return worker;
         }
+
+        public List<WorkerList> GetWorkerByFactoryId(int id)
+        {
+            List<WorkerList> worker = new List<WorkerList>();
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+
+            string sqlQuery = "SELECT registereduser.name, registereduser.surname, worker.id_Worker" +
+                " FROM factory" +
+                " INNER JOIN worker ON worker.fk_Factoryid_Factory = ?id" +
+                " INNER JOIN registereduser ON worker.fk_RegisteredUserid_RegisteredUser = registereduser.id_RegisteredUser";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlConnection.Open();
+
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            foreach (DataRow item in dt.Rows)
+            {
+                worker.Add(new WorkerList
+                {
+                    Name = Convert.ToString(item["name"]),
+                    Surname = Convert.ToString(item["surname"]),
+                    id_Worker = Convert.ToInt32(item["id_Worker"]),
+                    //Salary = Convert.ToInt32(item["salary"])
+                });
+            }
+
+            return worker;
+        }
+
+        public string CheckWorkerType(int id)
+        {
+            int count = 0;
+
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+
+            string sqlQuery = "SELECT COUNT(motivatedworker.fk_Workerid_Worker) as count FROM motivatedworker WHERE motivatedworker.fk_Workerid_Worker = ?id";
+
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlConnection.Open();
+
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            count = Convert.ToInt32(dt.Rows[0]["count"]);
+
+            if (count > 0)
+                return "MotivatedWorker";
+
+            return "MotivatingWorker";
+        }
     }
 }
