@@ -61,6 +61,24 @@ namespace DarbasGamykloje.Repos
             return Assignments;
         }
 
+        public int GetCompletedAssignmentCount(int id)
+        {
+            int completedAssignments = 0;
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+            string sqlQuery = "SELECT COUNT(isCompleted) FROM assignments WHERE fk_Scheduleid_Schedule = ?id AND isCompleted = 1";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlConnection.Open();
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            completedAssignments = Convert.ToInt32(dt.Rows[0]["COUNT(isCompleted)"]);
+            return completedAssignments;
+        }
+
         public int CountsCompletedAssignments(int id)
         {
             int count = 0;

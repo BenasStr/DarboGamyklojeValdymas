@@ -37,6 +37,38 @@ namespace DarbasGamykloje.Repos
             return worker;
         }
 
+        public List<WorkerView> GetAllWorkers()
+        {
+            List<WorkerView> workerList = new List<WorkerView>();
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+            string sqlQuery = "SELECT * FROM worker WHERE isDeleted <> 1";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+            mySqlConnection.Open();
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                workerList.Add(new WorkerView
+                {
+                    salary = Convert.ToInt32(dr["salary"]),
+                    isDeleted = Convert.ToBoolean(dr["isDeleted"]),
+                    numberOfDaysWorked = Convert.ToInt32(dr["numberOfDaysWorked"]),
+                    checkedSalaryCount = Convert.ToInt32(dr["checkedSalaryCount"]),
+                    id_Worker = Convert.ToInt32(dr["id_Worker"]),
+                    fk_Managerid_Manager = Convert.ToInt32(dr["fk_Managerid_Manager"]),
+                    fk_LivingSpaceid_LivingSpace = Convert.ToInt32(dr["fk_LivingSpaceid_LivingSpace"]),
+                    fk_RegisteredUserid_RegisteredUser = Convert.ToInt32(dr["fk_RegisteredUserid_RegisteredUser"]),
+                    fk_Factoryid_Factory = Convert.ToInt32(dr["fk_Factoryid_Factory"])
+                });
+            }
+
+            return workerList;
+        }
+
         public List<WorkerList> GetWorkerByFactoryId(int id)
         {
             List<WorkerList> worker = new List<WorkerList>();

@@ -41,5 +41,27 @@ namespace DarbasGamykloje.Repos
 
             return Factories;
         }
+
+        public double GetProductValue(int id_factory)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+
+            string sqlQuery = @"SELECT value FROM product WHERE product.fk_Factoryid_Factory = ?id";
+
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id_factory;
+            mySqlConnection.Open();
+
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            double value = Convert.ToDouble(dt.Rows[0]["value"]);
+
+            return value;
+        }
     }
 }

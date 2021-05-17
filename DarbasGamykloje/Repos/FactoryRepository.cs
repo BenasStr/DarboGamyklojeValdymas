@@ -59,23 +59,26 @@ namespace DarbasGamykloje.Repos
             return true;
         }
 
-        public double SumProfitFromFactories(int id)
+        public int GetCompletedAssigmentsCount(int id, DateTime date)
         {
-            double sum = 0;
+            int count = 0;
 
             string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
             MySqlConnection mySqlConnection = new MySqlConnection(connStr);
 
-            string sqlQuery = @"SELECT SUM(product.value) as sum 
-                                FROM product INNER JOIN factory ON factory.id_Factory = product.fk_Factoryid_Factory
-                                INNER JOIN workspace ON factory.id_Factory = workspace.fk_Factoryid_Factory
-                                INNER JOIN assignments ON workspace.id_Workspace = assignments.fk_Workspaceid_Workspace
-                                WHERE assignments.isCompleted = 1
-                                AND factory.id_Factory = ?id";
+            string sqlQuery = @"SELECT COUNT(assignments.isCompleted) AS count
+                                FROM workspace
+                                INNER JOIN assignments ON assignments.fk_Workspaceid_Workspace = workspace.id_Workspace
+                                INNER JOIN schedule ON schedule.id_Schedule = assignments.fk_Scheduleid_Schedule
+                                WHERE workspace.fk_Factoryid_Factory = ?id
+                                AND MONTH(schedule.startDate) = MONTH(?date)
+                                AND YEAR(schedule.startDate) = YEAR(?date)
+                                AND assignments.isCompleted = 1";
 
             MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
 
             mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlCommand.Parameters.Add("?date", MySqlDbType.Int32).Value = date;
             mySqlConnection.Open();
 
             MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
@@ -83,9 +86,9 @@ namespace DarbasGamykloje.Repos
             mda.Fill(dt);
             mySqlConnection.Close();
 
-            sum = Convert.ToDouble(dt.Rows[0]["sum"]);
+            count = Convert.ToInt32(dt.Rows[0]["count"]);
 
-            return sum;
+            return count;
         }
     }
 }

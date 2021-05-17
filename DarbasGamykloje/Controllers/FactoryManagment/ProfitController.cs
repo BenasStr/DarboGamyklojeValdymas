@@ -27,10 +27,14 @@ namespace DarbasGamykloje.Controllers.FactoryManagment
 
         public ActionResult StartEvaluation(ProfitEvaluationView profit)
         {
-            profit.Profit = factoryRepository.SumProfitFromFactories(profit.fk_factoryId);
+            double productPrice = productRepository.GetProductValue(profit.fk_factoryId);
 
-            //profit.Profit -= 
-            
+            int count = factoryRepository.GetCompletedAssigmentsCount(profit.fk_factoryId, profit.date);
+
+            double salary = CalculateSalary(count);
+
+            profit.Profit = CalculateProfit(count, productPrice, salary);
+
             return View("../Factory/ProfitEvaluationView", profit);
         }
 
@@ -46,6 +50,16 @@ namespace DarbasGamykloje.Controllers.FactoryManagment
             }
 
             model.FactoryList = selectFactoriesList;
+        }
+
+        private double CalculateSalary(int count)
+        {
+            return count * 10;
+        }
+
+        private double CalculateProfit(int count, double item_value, double salary)
+        {
+            return count * item_value - salary ;
         }
     }
 }
