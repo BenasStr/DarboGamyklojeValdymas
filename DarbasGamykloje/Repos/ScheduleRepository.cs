@@ -98,8 +98,8 @@ namespace DarbasGamykloje.Repos
                                 (?startDate,?endDate,NULL, ?fk_Workerid_Worker)";
             MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
 
-            mySqlCommand.Parameters.Add("?startDate", MySqlDbType.VarChar).Value = model.startDate;
-            mySqlCommand.Parameters.Add("?endDate", MySqlDbType.VarChar).Value = model.endDate;
+            mySqlCommand.Parameters.Add("?startDate", MySqlDbType.Date).Value = model.startDate;
+            mySqlCommand.Parameters.Add("?endDate", MySqlDbType.Date).Value = model.endDate;
             mySqlCommand.Parameters.Add("?fk_Workerid_Worker", MySqlDbType.Int32).Value = model.fk_Workerid_Worker;
 
 
@@ -128,6 +128,24 @@ namespace DarbasGamykloje.Repos
             mySqlCommand.ExecuteNonQuery();
             mySqlConnection.Close();
             return true;
+        }
+
+        public int FactoryIdBySchedule(int id)
+        {
+            string connStr = ConfigurationManager.ConnectionStrings["MysqlConnection"].ConnectionString;
+            MySqlConnection mySqlConnection = new MySqlConnection(connStr);
+            string sqlQuery = @"SELECT worker.fk_Factoryid_Factory FROM `worker` INNER JOIN schedule ON schedule.fk_Workerid_Worker = worker.id_Worker WHERE schedule.id_Schedule = ?id";
+            MySqlCommand mySqlCommand = new MySqlCommand(sqlQuery, mySqlConnection);
+            mySqlCommand.Parameters.Add("?id", MySqlDbType.Int32).Value = id;
+            mySqlConnection.Open();
+            MySqlDataAdapter mda = new MySqlDataAdapter(mySqlCommand);
+            DataTable dt = new DataTable();
+            mda.Fill(dt);
+            mySqlConnection.Close();
+
+            int ret = Convert.ToInt32(dt.Rows[0]["fk_Factoryid_Factory"]);
+
+            return ret;
         }
 
 

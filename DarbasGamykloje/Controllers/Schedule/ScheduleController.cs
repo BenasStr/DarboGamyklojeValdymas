@@ -42,6 +42,7 @@ namespace DarbasGamykloje.Controllers.Schedule
 
             return View(ScheduleRepos.GetScheduleByFactoryId(factory.id_Factory));
         }
+
         public ActionResult ScheduleEditView(int id)
         {
             return View(ScheduleRepos.GetScheduleByItemId(id));
@@ -56,8 +57,8 @@ namespace DarbasGamykloje.Controllers.Schedule
                 {
                     ScheduleRepos.updateSchedule(collection);
                 }
-
-                return RedirectToAction("FactorySchedule");
+                int fid = ScheduleRepos.FactoryIdBySchedule(id);
+                return RedirectToAction("View factory schedule", new { id = fid });
             }
             catch
             {
